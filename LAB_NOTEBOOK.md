@@ -37,3 +37,20 @@ IRT Basics Reading:
   - Adaptability to Diverse Pattern Responses
   - Individualized/Adaptive Assessment
   - Comprehensive Item Analysis
+
+#Entry 2: November 7, 2026
+
+Issues in N-of-1 Trials Paper:
+
+- Serial Correlation Penalty
+  - Measurements taken close together in time exhibit strong serial correlation (AR(1)), which reduces effective sample size and significantly lowers statistical power to detect treatment effects.
+- Period Stacking Remedy
+  - Breaking a fixed total number of observations (T) into more frequent, shorter alternation periods (e.g., shifting from 1p x 2i to 40p x 2i) largely mitigates the power loss caused by serial correlation.
+- Washout Trade-offs
+  - In the absence of carryover, inserting washout periods slightly decreases statistical power because positive correlation across different active/placebo periods actually helps reduce the variance of the treatment difference.
+- Heteroscedasticity Effects
+  - Unequal variances between treatments impact power depending on effect size; small effect sizes benefit from unequal variances under low serial correlation, but suffer under high serial correlation.
+- Detecting Carryover
+  - Statistical power to detect carryover effects is generally weak unless a larger block of measurements is concentrated in the initial baseline/treatment period compared to subsequent alternating periods.
+
+To model carryover in simulate.py, I will need to simulate how a previous treatment's physiological effect lingers into the next period before fully decaying.
