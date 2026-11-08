@@ -54,3 +54,9 @@ Issues in N-of-1 Trials Paper:
   - Statistical power to detect carryover effects is generally weak unless a larger block of measurements is concentrated in the initial baseline/treatment period compared to subsequent alternating periods.
 
 To model carryover in simulate.py, I will need to simulate how a previous treatment's physiological effect lingers into the next period before fully decaying.
+
+#Entry 3: November 8, 2026
+
+Added simulate.py and simulated a student who tested a set of problems. Got varying results depending on how many problems and what the scores were (in percent) based on whether they had already attempted it, used AI, or neither.
+With 5,000 retest problems the scores were about 0.66 (none), 0.74 (attempt-first), and 0.69 (AI-first), matching the effects that were set.
+With 20 problems the order changed between seeds, even though the true effects never changed.
