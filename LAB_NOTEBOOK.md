@@ -60,3 +60,11 @@ To model carryover in simulate.py, I will need to simulate how a previous treatm
 Added simulate.py and simulated a student who tested a set of problems. Got varying results depending on how many problems and what the scores were (in percent) based on whether they had already attempted it, used AI, or neither.
 With 5,000 retest problems the scores were about 0.66 (none), 0.74 (attempt-first), and 0.69 (AI-first), matching the effects that were set.
 With 20 problems the order changed between seeds, even though the true effects never changed.
+
+#Entry 4: November 20, 2026
+
+Worked on reproducing the 385-per-arm power result.
+Essentially working at the question at how many problems should be in a retest in order to increase the probability of a 10 point increase.
+The formula says about 385 problems per group for 80% power to detect 50% vs 60%.
+Simulation (5,000 trials): n=30 gives about 11.7% power, n=385 gives about 80.4%.
+With the number of problems I’d realistically do, a real 10-point effect would usually be missed.
