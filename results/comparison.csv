@@ -1,0 +1,5 @@
+retest_length,fixed_mean_error,adaptive_mean_error
+5,0.6312,0.5909
+10,0.5028,0.4601
+20,0.397,0.3541
+40,0.2889,0.2554
