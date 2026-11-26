@@ -68,3 +68,44 @@ Essentially working at the question at how many problems should be in a retest i
 The formula says about 385 problems per group for 80% power to detect 50% vs 60%.
 Simulation (5,000 trials): n=30 gives about 11.7% power, n=385 gives about 80.4%.
 With the number of problems I’d realistically do, a real 10-point effect would usually be missed.
+
+#Entry 5: November 26, 2026
+
+The goal was to estimate a learner's skill (theta) from their right/wrong answers, given known problem difficulties.
+I built a Rasch-model estimator. P(solve) = 1 / (1 + e^-(theta - b)). It tries every theta from -4 to 4 on a 401-point grid and picks the value that makes the observed answers most likely. It has an optional weak Normal(0, 1.5^2) prior. 
+Simulated one learner (true theta 0.8, 500 problems with difficulty from N(0,1), seed 0). Estimated theta was 0.86, off by 0.06.
+What I learned: The estimate is noisy because answers are random, and more problems means less noise. Pure maximum likelihood goes to the edge of the grid (+/-4) if every answer so far is right or every answer is wrong, which would be a problem for short retests. The weak prior keeps the estimate finite.
+**Next: Adaptive selection rule.**
+
+#Entry 6: November 26, 2026
+
+The goal was to pick each next retest problem to give the most information about skill.
+Pick_next chooses the unused problem whose difficulty is closest to the current skill estimate. run_retest gives an n-problem retest, either adaptive or with random difficulties, and returns the final estimate. Both designs use the same estimator with prior sd 1.5, so the comparison is fair. I used the prior in both because with pure maximum likelihood one answer sends the estimate to the grid edge and the adaptive rule would chase a bad estimate.
+**Results** 20-problem retest, 300 simulated learners, seed 1, 200-problem pool. **Mean error, adaptive: 0.34. Mean error, random: 0.378.**
+What I learned: Adaptive was better in this run. With only 300 learners the gap is about the size of the noise, so one run doesn't prove anything. The seed fixes the numbers, so the run is reproducible.
+**Next: Sanity checks, then a bigger comparison.**
+
+#Entry 7: November 26, 2026
+
+The goal was to check that the estimator and adaptive rule behave correctly before trusting the comparison.
+**Checks** 
+(1) With 20,000 problems, the estimator recovers true theta (-1.5, 0, 1.0) to within 0.1. 
+(2) pick_next returns the problem with the closest difficulty. 
+(3) No problem is given twice in one retest. 
+**All checks passed.**
+**Next** Adaptive vs fixed comparison.
+
+
+#Entry 8: November 26, 2026
+
+The goal was to test whether an adaptive retest estimates skill more accurately than a fixed-difficulty retest at the same length.
+**Setup** Rasch model, 200-problem pool with difficulties from N(0,1), true skill from N(0,1) with the same learner used in both designs, weak prior (sd 1.5) in both, seed 2026, 2,000 simulated learners per retest length. Metric: mean |estimated theta - true theta|.
+| Retest length | Fixed | Adaptive | Improvement |
+|---------------|-------|----------|-------------|
+|       5       | 0.631 |   0.591  |      6%     |
+|       10      | 0.503 |   0.460  |      9%     |
+|       20      | 0.397 |   0.354  |     11%     |
+|       40      | 0.289 |   0.255  |     12%     |
+**Results** Adaptive had lower error at every retest length, by about 6 to 12%, and the benefit grew a little with length. Error falls roughly as 1/sqrt(n), so by that rough scaling a fixed retest would need about 25 problems to match what adaptive gets from 20. This is an estimate from the table, not a measurement.
+**Limitations** The simulation assumes the Rasch model is true and every difficulty is known exactly. Real problems are noisier than that. I haven't yet measured the per-learner difference with a standard error, so the "gap is real" claim is not formally tested.
+**Next: Plots (power vs n, error vs retest length), then the sensitivity analysis.**
