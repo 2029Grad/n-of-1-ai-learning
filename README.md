@@ -19,7 +19,7 @@ Standard experiments need many participants. A single learner has only their own
 5. **Comparison** (`src/compare.py`): adaptive vs fixed-difficulty retests at several lengths.
 6. **Plots** (`src/plots.py`) and **sanity checks** (`src/sanity.py`).
 
-##Results
+# Results
 
 ![Power vs problems per arm](results/power_vs_n.png)
 
@@ -30,11 +30,11 @@ I built a simulated learner (skill that grows with practice, forgets, and respon
 Mean absolute error in the skill estimate (lower is better), 2,000 simulated learners per row:
 
 | Retest length | Fixed | Adaptive | Adaptive's improvement |
-|---------------|-------|----------|------------------------|
-|       5       | 0.631 |   0.591  |           6%           |
-|       10      | 0.503 |   0.460  |           9%           |
-|       20      | 0.397 |   0.354  |           11%          |
-|       40      | 0.289 |   0.255  |           12%          |
+|---|---|---|---|
+| 5 | 0.631 | 0.591 | 6% |
+| 10 | 0.503 | 0.460 | 9% |
+| 20 | 0.397 | 0.354 | 11% |
+| 40 | 0.289 | 0.255 | 12% |
 
 # Methods
 
@@ -64,17 +64,17 @@ python plots.py           # writes the two plots in results/
 
 # Repository layout
 
-|             Path            |                               Purpose                               |
-|-----------------------------|---------------------------------------------------------------------|
-|      `src/simulate.py`      | Simulated learner (growth, forgetting, protocol effects, carryover) |
-|      `src/estimate.py`      |                        Rasch skill estimator                        |
-|      `src/adaptive.py`      |                   Adaptive and fixed retest rules                   |
-|       `src/sanity.py`       |          Sanity checks for the estimator and adaptive rule          |
-|       `src/compare.py`      |                    Adaptive vs fixed comparison                     |
-|        `src/plots.py`       |                Power curve and error-vs-length plots                |
-|          `results/`         |                       Output tables and plots                       |
-| `docs/problem_statement.md` |                        Full problem statement                       |
-|      `LAB_NOTEBOOK.md`      |           Dated notebook of what I did and what I learned           |
+| Path | Purpose |
+|---|---|
+| `src/simulate.py` | Simulated learner (growth, forgetting, protocol effects, carryover) |
+| `src/estimate.py` | Rasch skill estimator |
+| `src/adaptive.py` | Adaptive and fixed retest rules |
+| `src/sanity.py` | Sanity checks for the estimator and adaptive rule |
+| `src/compare.py` | Adaptive vs fixed comparison |
+| `src/plots.py` | Power curve and error-vs-length plots |
+| `results/` | Output tables and plots |
+| `docs/problem_statement.md` | Full problem statement |
+| `LAB_NOTEBOOK.md` | Dated notebook of what I did and what I learned |
 
 # Limitations
 
@@ -103,3 +103,7 @@ A browser tool that uses the same estimator to give AMC/AIME students a skill es
 # Author
 
 Pratham Prasanna, Bellarmine College Prep.
+
+# License
+
+MIT
