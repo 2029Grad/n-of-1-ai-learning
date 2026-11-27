@@ -109,3 +109,11 @@ The goal was to test whether an adaptive retest estimates skill more accurately 
 **Results** Adaptive had lower error at every retest length, by about 6 to 12%, and the benefit grew a little with length. Error falls roughly as 1/sqrt(n), so by that rough scaling a fixed retest would need about 25 problems to match what adaptive gets from 20. This is an estimate from the table, not a measurement.
 **Limitations** The simulation assumes the Rasch model is true and every difficulty is known exactly. Real problems are noisier than that. I haven't yet measured the per-learner difference with a standard error, so the "gap is real" claim is not formally tested.
 **Next: Plots (power vs n, error vs retest length), then the sensitivity analysis.**
+
+#Entry 9: November 27, 2026 
+
+The goal was to turn the power and comparison results into two plots and a short results summary in the README.
+Made `results/power_vs_n.png` (power vs problems per arm for true solve rates 0.50 vs 0.60, analytic curve plus 5,000-trial Monte Carlo points) and `results/error_vs_retest_length.png` (mean absolute error in skill estimate vs retest length, fixed vs adaptive).
+The plots show that simulated power at n=30 was [your number from the printout] (analytic 0.12) and about [your number] at n=385 (analytic 0.80). The adaptive retest had lower error than the fixed retest at every length (5, 10, 20, 40), by about 6 to 12%.
+**Limitations:** The error plot shows means only, with no confidence intervals. It assumes the Rasch model is true and difficulties are known exactly.
+**Next:** Sensitivity analysis over forgetting, carryover, and effect size.
