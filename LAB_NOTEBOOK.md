@@ -110,10 +110,18 @@ The goal was to test whether an adaptive retest estimates skill more accurately 
 **Limitations** The simulation assumes the Rasch model is true and every difficulty is known exactly. Real problems are noisier than that. I haven't yet measured the per-learner difference with a standard error, so the "gap is real" claim is not formally tested.
 **Next: Plots (power vs n, error vs retest length), then the sensitivity analysis.**
 
-#Entry 9: November 26, 2026
+#Entry 9: November 27, 2026
 
 The goal was to turn the power and comparison results into two plots and a short results summary in the README.
 Made `results/power_vs_n.png` (power vs problems per arm for true solve rates 0.50 vs 0.60, analytic curve plus 5,000-trial Monte Carlo points) and `results/error_vs_retest_length.png` (mean absolute error in skill estimate vs retest length, fixed vs adaptive).
 The graphs show simulated power at n=30 was [your number from the printout] (analytic 0.12) and about [your number] at n=385 (analytic 0.80). The adaptive retest had lower error than the fixed retest at every length (5, 10, 20, 40), by about 6 to 12%.
 **Limitations:** The error plot shows means only, with no confidence intervals. It assumes the Rasch model is true and difficulties are known exactly.
 **Next:** Sensitivity analysis over forgetting, carryover, and effect size.
+
+#Entry 10: November 27, 2026
+
+**Setup:** 3 values each for per-session forgetting rate (0.02, 0.05, 0.10), carryover fraction c (0, 0.3, 0.6), and protocol effect scale (0.5x, 1x, 2x of the effect sizes in simulate.py): 27 combinations. For each, the retest problems per arm needed for 80% power to detect attempt_first vs none, with a fixed and an adaptive retest, 500 experiments per point, seed 2026. Both designs use the same Rasch estimator and the same z-test on estimated skill. Table: results/sensitivity.csv.
+**Checks:** My training loop matches simulate.run_experiment exactly at the defaults; with zero effect both designs reject about 5% of the time.
+**What the answer depends on:** The problems per arm needed for 80% power depend most on the true protocol effect size: the median fell about 8-fold across its three values, from about 1,280 at half the default effect to 480 at the default and 160 at double for the fixed design, and from 960 to 320 to 120 for the adaptive design. Forgetting rate and carryover mattered much less, each changing the median by about 1.6 to 2 times across its three values (for the fixed design, 280 to 560 across forgetting and 280 to 480 across carryover), and more of either made the effect harder to detect. The adaptive design needed fewer problems than the fixed design at every level of every knob, by roughly 12% to 33% in the medians (for example 480 vs 320 at the default effect size), but because the grid is coarse and these are group medians, the exact saving is uncertain.
+**Limitations:** Training in my simulator has no randomness, so power reflects measurement noise only. Sample sizes come from a grid, so each is "at most this many". The bank holds 4x the retest length in problems; with a smaller bank the adaptive advantage would shrink. Results hold only for this simulator. The medians leave out combinations that did not reach 80% power by 1,280 problems per arm, so the numbers at the smallest effect size are lower bounds.
+**Next:** Finish building the tool and ship it out to 10 people to start working on the paper.
